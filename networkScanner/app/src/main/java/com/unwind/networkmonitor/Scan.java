@@ -141,14 +141,12 @@ public class Scan extends ActionBarActivity {
         }
         @Override
         protected List<Device> doInBackground(NetDeviceAdapter... voids) {
-
-
             String ipString = getLocalIpv4Address();
-
 
             if (ipString == null){
                 return new ArrayList<Device>(1);
             }
+
             int lastdot = ipString.lastIndexOf(".");
             ipString = ipString.substring(0, lastdot);
 

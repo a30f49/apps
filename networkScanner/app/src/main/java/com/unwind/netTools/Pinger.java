@@ -16,7 +16,7 @@ import java.util.List;
 public class Pinger {
 	
 	private static final int NUMTHREADS = 254; 
-
+    private static final String EMPTY_MAC = "00:00:00:00:00:00";
 	
 	public static List<Device> getDevicesOnNetwork(String subnet){
 		LinkedList<InetAddress> resAddresses = new LinkedList<InetAddress>();
@@ -54,13 +54,16 @@ public class Pinger {
 				}
 				resAddresses.add(a);
 			}
-		
 		}
 
         ArrayList<Device> foundDev = new ArrayList<Device>(resAddresses.size());
 
         for (InetAddress a: resAddresses){
-            foundDev.add(new Device(a.getHostAddress(), getMacFromArpCache(a.getHostAddress()), a.getCanonicalHostName()));
+            String macString = getMacFromArpCache(a.getHostAddress());
+            if(macString==null || macString.compareTo(EMPTY_MAC)==0){
+                continue;
+            }
+            foundDev.add(new Device(a.getHostAddress(), macString, a.getCanonicalHostName()));
         }
 
 		
