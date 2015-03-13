@@ -23,9 +23,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.analytics.tracking.android.EasyTracker;
-import com.google.analytics.tracking.android.GoogleAnalytics;
-import com.google.analytics.tracking.android.Tracker;
+import com.google.analytics.tracking.android.*;
 import fq.router2.feedback.*;
 import fq.router2.life_cycle.*;
 import fq.router2.utils.*;
@@ -97,7 +95,13 @@ public class MainActivity extends Activity implements
         fullPowerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gaTracker.sendEvent("more-power", "click", "", new Long(0));
+                //TODO,v2 v4
+                //gaTracker.sendEvent("more-power", "click", "", new Long(0));
+                gaTracker.send(MapBuilder
+                        .createEvent("more-power", "click", "", new Long(0))
+                        .set(Fields.SESSION_CONTROL, "start")
+                        .build());
+
                 if (Build.VERSION.SDK_INT < 14) {
                     Uri uri = Uri.parse("http://127.0.0.1:" + ConfigUtils.getHttpManagerPort());
                     startActivity(new Intent(Intent.ACTION_VIEW, uri));
@@ -123,13 +127,13 @@ public class MainActivity extends Activity implements
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this);
+        EasyTracker.getInstance(this).activityStart(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this);
+        EasyTracker.getInstance(this).activityStop(this);
     }
 
     @Override
@@ -351,7 +355,8 @@ public class MainActivity extends Activity implements
 
     public void exit() {
         if (LaunchService.isVpnRunning(this)) {
-            Toast.makeText(this, R.string.vpn_exit_hint, 5000).show();
+            Toast.makeText(this,
+                    R.string.vpn_exit_hint, 5000).show();
             return;
         }
         ExitService.execute(this);
@@ -575,7 +580,14 @@ public class MainActivity extends Activity implements
                     return false;
                 // right to left swipe
                 if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    gaTracker.sendEvent("more-power", "swipe", "", new Long(0));
+                    //TODO sendEvent, v2 v4
+                    //gaTracker.sendEvent("more-power", "swipe", "", new Long(0));
+                    gaTracker.send(
+                            MapBuilder
+                                    .createEvent("more-power", "swipe", "", new Long(0))
+                                    .set(Fields.SESSION_CONTROL, "start")
+                                    .build()
+                    );
                     showWebView();
                 }
             } catch (Exception e) {

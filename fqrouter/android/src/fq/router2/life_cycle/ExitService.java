@@ -3,9 +3,8 @@ package fq.router2.life_cycle;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.preference.PreferenceManager;
 import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.Tracker;
 import fq.router2.MainActivity;
 import fq.router2.R;
@@ -34,9 +33,13 @@ public class ExitService extends IntentService {
             if (elapsedTime > 0) {
                 GoogleAnalytics gaInstance = GoogleAnalytics.getInstance(this);
                 Tracker gaTracker = gaInstance.getTracker("UA-37740383-2");
-                gaTracker.setCustomDimension(1, Build.MODEL);
-                gaTracker.setCustomDimension(2, String.valueOf(ShellUtils.isRooted()));
-                gaTracker.sendTiming("engagement", elapsedTime, "session", "session");
+                //TODO,setCustomDimension
+                //gaTracker.setCustomDimension(1, Build.MODEL);
+                //gaTracker.setCustomDimension(2, String.valueOf(ShellUtils.isRooted()));
+                //TODO,setCustomDimension
+                //gaTracker.sendTiming("engagement", elapsedTime, "session", "session");
+                gaTracker.send(
+                        MapBuilder.createTiming("engagement", elapsedTime, "session", "session").build());
             }
             LogUtils.i("Exiting, session life " + elapsedTime + "..." );
             new Thread(new Runnable() {

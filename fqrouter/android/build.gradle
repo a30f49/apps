@@ -6,7 +6,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:1.0.0'
     }
 }
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 
 repositories {
     jcenter()
@@ -17,6 +17,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
+        applicationId 'fq.router'
         minSdkVersion 14
         targetSdkVersion 19
         versionCode 1
@@ -36,9 +37,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
+    compile fileTree(dir: 'libs', include:['*.jar'])
     compile 'com.android.support:support-v4:21.0.3'
-    compile 'com.google.apis:google-api-services-analytics:v3-rev103-1.19.0'
+    //compile 'com.google.apis:google-api-services-analytics:v3-rev103-1.19.0'
 }
