@@ -1,6 +1,5 @@
 package com.unwind.netTools;
 
-
 import com.unwind.netTools.model.Device;
 
 import java.io.BufferedReader;

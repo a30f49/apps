@@ -34,7 +34,6 @@ public class Scan extends ActionBarActivity {
 
     private  NetDeviceAdapter adapter = new NetDeviceAdapter(new ArrayList<Device>(15), R.layout.device_fragment, this);
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +63,6 @@ public class Scan extends ActionBarActivity {
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-
-
-
         rescan();
     }
     private void rescan(){
@@ -81,7 +77,6 @@ public class Scan extends ActionBarActivity {
         }else {
             Toast.makeText(this, getString(R.string.not_connected_error), Toast.LENGTH_LONG).show();
         }
-
     }
 
     @Override

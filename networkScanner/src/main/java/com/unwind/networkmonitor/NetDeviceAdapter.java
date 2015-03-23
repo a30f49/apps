@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.unwind.netTools.model.Device;
 
-import java.net.InetAddress;
 import java.util.List;
 
 /**
@@ -17,11 +16,8 @@ import java.util.List;
  */
 public class NetDeviceAdapter extends RecyclerView.Adapter<NetDeviceAdapter.ViewHolder> {
 
-
     private List<Device> addresses;
     private int rowLayout;
-
-
 
     private Context mContext;
 
@@ -30,7 +26,6 @@ public class NetDeviceAdapter extends RecyclerView.Adapter<NetDeviceAdapter.View
         this.rowLayout = rowLayout;
         this.mContext = mContext;
     }
-
 
     @Override
     public NetDeviceAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
